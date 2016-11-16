@@ -18,7 +18,7 @@
 #    This will add the ability to define actions that will be performed at bootup in a script located at /root/autoscale/bootstrap/bootstrap.sh
 #
 # An example bootstrap.sh file is provided that sets up a CPU check using Rackspace Cloud Monitoring
-# 
+#
 ###################################################################################################################
 
 RAX_USERNAME="<RAX_USERNAME>"
@@ -26,18 +26,11 @@ RAX_API_KEY="<RAX_API_KEY>"
 
 
 #INSTALL MONITORING AGENT:
-curl https://monitoring.api.rackspacecloud.com/pki/agent/centos-6.asc > /tmp/signing-key.asc
-sudo rpm --import /tmp/signing-key.asc
-cat << EOF > /etc/yum.repos.d/rackspace-cloud-monitoring.repo
-[rackspace]
-name=Rackspace Monitoring
-baseurl=http://stable.packages.cloudmonitoring.rackspace.com/centos-6-x86_64
-enabled=1
-EOF
-
-sudo yum --assumeyes install rackspace-monitoring-agent
-rackspace-monitoring-agent --setup --username $RAX_USERNAME --apikey $RAX_API_KEY
-service rackspace-monitoring-agent start
+sudo sh -c 'echo "deb http://stable.packages.cloudmonitoring.rackspace.com/ubuntu-14.04-x86_64 cloudmonitoring main" > /etc/apt/sources.list.d/rackspace-monitoring-agent.list'
+wget -qO- https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc | sudo apt-key add -
+sudo apt-get update && sudo apt-get install -y rackspace-monitoring-agent
+sudo rackspace-monitoring-agent --setup --username $RAX_USERNAME --apikey $RAX_API_KEY
+sudo rackspace-monitoring-agent start -D
 chkconfig rackspace-monitoring-agent on
 
 #Install Rackspace-Monitoring CLI tool:
@@ -46,6 +39,9 @@ cat << EOF > ~/.raxrc
 [credentials]
 username=$RAX_USERNAME
 api_key=$RAX_API_KEY
+
+[auth_api]
+url=https://lon.identity.api.rackspacecloud.com/v2.0/tokens
 EOF
 
 raxmon-entities-list
@@ -54,9 +50,8 @@ cat << EOF >> /etc/rc.d/rc.local
 
 
 #bootstrap tasks
-yum --assumeyes install git
+sudo apt-get install -y git
 rm -rf /root/autoscale
 git clone https://github.com/ggpretorius/autoscale /root/autoscale
 /root/autoscale/bootstrap/bootstrap.sh 2>&1 > /var/log/bootstrap.log
 EOF
-
