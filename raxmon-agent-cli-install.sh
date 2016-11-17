@@ -31,7 +31,6 @@ wget -qO- https://monitoring.api.rackspacecloud.com/pki/agent/linux.asc | sudo a
 sudo apt-get update && sudo apt-get install -y rackspace-monitoring-agent
 sudo rackspace-monitoring-agent --setup --username $RAX_USERNAME --apikey $RAX_API_KEY
 sudo rackspace-monitoring-agent start -D
-chkconfig rackspace-monitoring-agent on
 
 #Install Rackspace-Monitoring CLI tool:
 sudo pip install rackspace-monitoring-cli
@@ -46,8 +45,7 @@ EOF
 
 raxmon-entities-list
 
-cat << EOF >> /etc/rc.d/rc.local
-
+cat << EOF >> /etc/rc.local
 
 #bootstrap tasks
 sudo apt-get install -y git
