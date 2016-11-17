@@ -56,6 +56,6 @@ cat << EOF >> /etc/rc.local
 #bootstrap tasks
 sudo apt-get install -y git
 rm -rf /root/autoscale
-git clone https://github.com/ggpretorius/autoscale /root/autoscale
+git clone https://github.com/sa-adebayo/autoscale /root/autoscale
 /root/autoscale/bootstrap/bootstrap.sh 2>&1 > /var/log/bootstrap.log
 EOF
