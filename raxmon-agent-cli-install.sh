@@ -5,6 +5,9 @@
 # Version: 0.1
 # Released: 21 July 2014
 #
+# Editor: Adebayo Akinlaja
+# Edited: 17 Nov 2016
+#
 # Must be run as root
 #
 # This script will:
@@ -14,7 +17,7 @@
 # 2) Install raxmon - The Rackspace Cloud Monitoring CLI tool:
 #    www.rackspace.com/knowledge_center/article/getting-started-with-rackspace-monitoring-cli
 #
-# 3) Set up a very simple server bootstrap configuration process using /etc/rc.d/rc.local
+# 3) Set up a very simple server bootstrap configuration process using /etc/rc.local
 #    This will add the ability to define actions that will be performed at bootup in a script located at /root/autoscale/bootstrap/bootstrap.sh
 #
 # An example bootstrap.sh file is provided that sets up a CPU check using Rackspace Cloud Monitoring
