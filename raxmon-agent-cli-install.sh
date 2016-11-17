@@ -45,14 +45,8 @@ cat << EOF > ~/.raxrc
 username=$RAX_USERNAME
 api_key=$RAX_API_KEY
 
-[api]
-url=https://monitoring.api.rackspacecloud.com/v1.0
-
 [auth_api]
-url=https://identity.api.rackspacecloud.com/v2.0
-
-[ssl]
-verify=true
+url=https://identity.api.rackspacecloud.com/v2.0/tokens
 EOF
 
 raxmon-entities-list
