@@ -36,14 +36,23 @@ sudo rackspace-monitoring-agent --setup --username $RAX_USERNAME --apikey $RAX_A
 sudo rackspace-monitoring-agent start -D
 
 #Install Rackspace-Monitoring CLI tool:
+sudo apt-get install python-pip python-dev build-essential
+sudo pip install --upgrade pip
+sudo pip install --upgrade virtualenv
 sudo pip install rackspace-monitoring-cli
 cat << EOF > ~/.raxrc
 [credentials]
 username=$RAX_USERNAME
 api_key=$RAX_API_KEY
 
+[api]
+url=https://monitoring.api.rackspacecloud.com/v1.0
+
 [auth_api]
-url=https://lon.identity.api.rackspacecloud.com/v2.0/tokens
+url=https://identity.api.rackspacecloud.com/v2.0
+
+[ssl]
+verify=true
 EOF
 
 raxmon-entities-list
