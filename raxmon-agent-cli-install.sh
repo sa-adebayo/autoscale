@@ -18,7 +18,7 @@
 #    This will add the ability to define actions that will be performed at bootup in a script located at /root/autoscale/bootstrap/bootstrap.sh
 #
 # An example bootstrap.sh file is provided that sets up a CPU check using Rackspace Cloud Monitoring
-# 
+#
 ###################################################################################################################
 
 RAX_USERNAME="<RAX_USERNAME>"
@@ -56,7 +56,6 @@ cat << EOF >> /etc/rc.d/rc.local
 #bootstrap tasks
 yum --assumeyes install git
 rm -rf /root/autoscale
-git clone https://github.com/ggpretorius/autoscale /root/autoscale
+git clone https://github.com/sa-adebayo/autoscale /root/autoscale
 /root/autoscale/bootstrap/bootstrap.sh 2>&1 > /var/log/bootstrap.log
 EOF
-
